@@ -14,9 +14,17 @@ while cam.isOpened():
     success, frame = cam.read()
     img_rgb = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
     result = hands.process(img_rgb)
+
+    frame_height, frame_width, frame_channel = frame.shape
+    # print(frame_width,frame_height)
+
     if result.multi_hand_landmarks:
         for hand_land_mark in result.multi_hand_landmarks:
             mpDrawUtil.draw_landmarks(frame,hand_land_mark,mpHandsSolution.HAND_CONNECTIONS)
+            for id,each_land_mark in enumerate(hand_land_mark.landmark):
+                abs_x, abs_y = int(each_land_mark.x * frame_width), int(each_land_mark.y * frame_height)
+                print(id,abs_x,abs_y)
+
 
     curTime = time.time()
     fps = 1/(curTime - preTime)
