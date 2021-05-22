@@ -4,9 +4,9 @@ import time
 
 
 class HandDetector():
-    def __init__(self):
+    def __init__(self,isStillImage = False, max_num_hands=2, min_detection_confidence=0.5, min_tracking_confidence=0.5):
         self.mpHandsSolution = mp.solutions.hands
-        self.hands = self.mpHandsSolution.Hands()
+        self.hands = self.mpHandsSolution.Hands(isStillImage,max_num_hands,min_detection_confidence,min_tracking_confidence)
         self.mpDrawUtil = mp.solutions.drawing_utils
 
     def detectHands(self, frame, draw = True):
